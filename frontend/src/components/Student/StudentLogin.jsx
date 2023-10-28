@@ -26,10 +26,13 @@ export default function StudentLogin() {
 
   // 2. Define a submit handler.
   const onSubmit = async values => {
-    await axiosClient.get('/sanctum/csrf-cookie')
+    await axiosClient.get('/sanctum/csrf-cookie', {
+      baseURL: import.meta.env.VITE_BACKEND_URL
+    })
     const data = axiosClient.post('/login', values).then(
       (value) => {
         if (value.status === 204) {
+          window.localStorage.setItem('ACCESS_TOKEN', 'test')
           navigate(STUDENT_DASHBOARD_ROUTE)
         }
       }

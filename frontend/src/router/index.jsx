@@ -3,6 +3,9 @@ import Home from "../pages/Home.jsx";
 import Login from "../pages/Login.jsx";
 import NotFound from "../pages/NotFound.jsx";
 import Layout from "../layouts/Layout.jsx";
+import GuestLayout from "../layouts/GuestLayout.jsx";
+import StudentDashboardLayout from "../layouts/Student/StudentDashboardLayout.jsx";
+import StudentDashboard from "../components/Student/StudentDashboard.jsx";
 
 export const LOGIN_ROUTE = '/login'
 export const STUDENT_DASHBOARD_ROUTE = '/student/dashboard'
@@ -15,18 +18,28 @@ export const router = createBrowserRouter([
         element: <Home/>
       },
       {
-        path: LOGIN_ROUTE,
-        element: <Login/>
-      },
-      {
-        path: STUDENT_DASHBOARD_ROUTE,
-        element: <h1>Hi student</h1>
-      },
-      {
         path: '*',
         element: <NotFound/>
       },
     ]
   },
+    {
+        element: <GuestLayout/>,
+        children: [
+            {
+                path: LOGIN_ROUTE,
+                element: <Login/>
+            },
+        ]
+    },
+    {
+        element: <StudentDashboardLayout/>,
+        children: [
+            {
+                path: STUDENT_DASHBOARD_ROUTE,
+                element: <StudentDashboard/>
+            },
+        ]
+    }
 
 ])
