@@ -2,13 +2,14 @@ import {Link, Outlet, useNavigate} from "react-router-dom";
 import Logo from "../components/Logo.jsx";
 import {LOGIN_ROUTE, STUDENT_DASHBOARD_ROUTE} from "../router/index.jsx";
 import {useEffect} from "react";
+import {useUserContext} from "../context/UserContext.jsx";
 
 export default function GuestLayout() {
     const navigate = useNavigate()
-
+    const context = useUserContext()
 
     useEffect(() => {
-        if (window.localStorage.getItem('ACCESS_TOKEN')) {
+        if (context.authenticated) {
             navigate(STUDENT_DASHBOARD_ROUTE)
         }
     }, []);
