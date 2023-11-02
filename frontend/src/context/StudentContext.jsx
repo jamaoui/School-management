@@ -3,7 +3,7 @@ import StudentApi from "../services/Api/Student/StudentApi.js";
 import {STUDENT_DASHBOARD_ROUTE} from "../router/index.jsx";
 import {useNavigate} from "react-router-dom";
 
-export const UserStateContext = createContext({
+export const StudentStateContext = createContext({
   user: {},
   authenticated: false,
   setUser: () => {
@@ -15,7 +15,7 @@ export const UserStateContext = createContext({
   setAuthenticated: () => {
   },
 })
-export default function UserContext({children}) {
+export default function StudentContext({children}) {
   const [user, setUser] = useState({})
   const [authenticated, _setAuthenticated] = useState(window.localStorage.getItem('AUTHENTICATED'))
 
@@ -33,7 +33,7 @@ export default function UserContext({children}) {
     window.localStorage.setItem('AUTHENTICATED', isAuthenticated)
   }
   return <>
-    <UserStateContext.Provider value={{
+    <StudentStateContext.Provider value={{
       user,
       login,
       logout,
@@ -42,7 +42,7 @@ export default function UserContext({children}) {
       setAuthenticated,
     }}>
       {children}
-    </UserStateContext.Provider>
+    </StudentStateContext.Provider>
   </>
 }
-export const useUserContext = () => useContext(UserStateContext)
+export const useUserContext = () => useContext(StudentStateContext)

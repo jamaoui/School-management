@@ -8,7 +8,7 @@ import {axiosClient} from "../../api/axios.js";
 import {useNavigate} from "react-router-dom";
 import {STUDENT_DASHBOARD_ROUTE} from "../../router/index.jsx";
 import {Loader, Loader2} from "lucide-react";
-import {useUserContext} from "../../context/UserContext.jsx";
+import {useUserContext} from "../../context/StudentContext.jsx";
 
 const formSchema = z.object({
   email: z.string().email().min(2).max(30),
@@ -21,14 +21,14 @@ export default function StudentLogin() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: 'mouad@jamaoui.com',
-      password: '12345678',
+      password: '123456789',
     }
   })
   const {setError, formState: {isSubmitting}} = form
 
   // 2. Define a submit handler.
   const onSubmit = async values => {
-    login(values.email, values.password).then(
+    await login(values.email, values.password).then(
       (value) => {
         if (value.status === 204) {
           setAuthenticated(true)

@@ -2,7 +2,8 @@ import {Link, Outlet, useNavigate} from "react-router-dom";
 import Logo from "../components/Logo.jsx";
 import {LOGIN_ROUTE, STUDENT_DASHBOARD_ROUTE} from "../router/index.jsx";
 import {useEffect} from "react";
-import {useUserContext} from "../context/UserContext.jsx";
+import {useUserContext} from "../context/StudentContext.jsx";
+import {LogInIcon, HomeIcon} from 'lucide-react'
 
 export default function GuestLayout() {
     const navigate = useNavigate()
@@ -24,13 +25,11 @@ export default function GuestLayout() {
                 <div>
                     <ul className="flex text-white">
                         <li className="ml-5 px-2 py-1">
-                            <Link to={'/'}>Home page</Link>
+                            <Link className={'flex'} to={'/'}><HomeIcon className={'mx-1'} /> Home page</Link>
                         </li>
                         <li className="ml-5 px-2 py-1">
-                            <Link to={LOGIN_ROUTE}>Login</Link>
+                            <Link className={'flex'} to={LOGIN_ROUTE}><LogInIcon className={'mx-1'}/> Login</Link>
                         </li>
-                        <li className="ml-5 px-3 py-1 rounded font-semibold bg-gray-100 text-gray-800"><a href="">DARK
-                            MODE</a></li>
                     </ul>
                 </div>
             </div>

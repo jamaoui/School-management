@@ -1,14 +1,14 @@
 import './App.css'
 import {RouterProvider} from "react-router-dom";
 import {router} from "./router/index.jsx";
-import UserContext from "./context/UserContext.jsx";
+import StudentContext from "./context/StudentContext.jsx";
 
 function App() {
   return (
     <>
-      <UserContext>
+      <StudentContext>
         <RouterProvider router={router} />
-      </UserContext>
+      </StudentContext>
     </>
   )
 }

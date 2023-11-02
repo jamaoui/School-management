@@ -1,4 +1,4 @@
-import {useUserContext} from "../context/UserContext.jsx";
+import {useUserContext} from "../context/StudentContext.jsx";
 
 export default function Home() {
   const context = useUserContext()
