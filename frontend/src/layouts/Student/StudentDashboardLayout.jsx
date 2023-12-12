@@ -1,7 +1,7 @@
 import {Link, Outlet, useNavigate} from "react-router-dom";
 import Logo from "../../components/Logo.jsx";
 import {LOGIN_ROUTE, STUDENT_DASHBOARD_ROUTE} from "../../router/index.jsx";
-import {useEffect,} from "react";
+import {useEffect, useState,} from "react";
 import {useUserContext} from "../../context/StudentContext.jsx";
 import StudentApi from "../../services/Api/Student/StudentApi.js";
 import StudentDropDownMenu from "./StudentDropDownMenu.jsx";
@@ -11,17 +11,26 @@ import {ModeToggle} from "../../components/mode-toggle.jsx";
 
 export default function StudentDashboardLayout() {
     const navigate = useNavigate()
-    const {setUser, setAuthenticated, logout: contextLogout} = useUserContext()
+    const [isLoading, setIsLoading] = useState(true)
+    const {authenticated,setUser, setAuthenticated, logout: contextLogout} = useUserContext()
     useEffect(() => {
-        StudentApi.getUser().then(({data}) => {
-            setUser(data)
-            setAuthenticated(true)
-        }).catch((reason) => {
-            contextLogout()
+        if(authenticated === true) {
+            setIsLoading(true)
+            StudentApi.getUser().then(({data}) => {
+                setUser(data)
+                setAuthenticated(true)
+            }).catch((reason) => {
+                contextLogout()
+            })
+        } else {
             navigate(LOGIN_ROUTE)
-        })
-    }, []);
+        }
 
+    }, [authenticated]);
+
+    if(isLoading) {
+        return <></>
+    }
 
     return <>
         <header>

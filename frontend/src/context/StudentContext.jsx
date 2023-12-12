@@ -17,7 +17,7 @@ export const StudentStateContext = createContext({
 })
 export default function StudentContext({children}) {
   const [user, setUser] = useState({})
-  const [authenticated, _setAuthenticated] = useState(window.localStorage.getItem('AUTHENTICATED'))
+  const [authenticated, _setAuthenticated] = useState('true' === window.localStorage.getItem('AUTHENTICATED'))
 
   const login = async (email, password) => {
     await StudentApi.getCsrfToken()
@@ -25,7 +25,7 @@ export default function StudentContext({children}) {
   }
   const logout = () => {
     setUser({})
-    _setAuthenticated(false)
+    setAuthenticated(false)
   }
 
   const setAuthenticated = (isAuthenticated) => {
