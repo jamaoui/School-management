@@ -15,7 +15,7 @@ export default function StudentDashboardLayout() {
     const {authenticated,setUser, setAuthenticated, logout: contextLogout} = useUserContext()
     useEffect(() => {
         if(authenticated === true) {
-            setIsLoading(true)
+            setIsLoading(false)
             StudentApi.getUser().then(({data}) => {
                 setUser(data)
                 setAuthenticated(true)
