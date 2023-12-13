@@ -10,8 +10,8 @@ import {
     DropdownMenuSub, DropdownMenuSubContent,
     DropdownMenuSubTrigger,
     DropdownMenuTrigger
-} from "../../components/ui/dropdown-menu.jsx";
-import {Button} from "../../components/ui/button.jsx";
+} from "../components/ui/dropdown-menu.jsx";
+import {Button} from "../components/ui/button.jsx";
 import {
     Cloud,
     CreditCard,
@@ -28,9 +28,9 @@ import {
     UserPlus,
     Users,
 } from 'lucide-react'
-import StudentApi from "../../services/Api/Student/StudentApi.js";
-import {LOGIN_ROUTE} from "../../router/index.jsx";
-import {useUserContext} from "../../context/StudentContext.jsx";
+import StudentApi from "../services/Api/Student/StudentApi.js";
+import {LOGIN_ROUTE} from "../router/index.jsx";
+import {useUserContext} from "../context/StudentContext.jsx";
 import {useNavigate} from "react-router-dom";
 
 export default function StudentDropDownMenu() {

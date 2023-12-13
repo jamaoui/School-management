@@ -1,20 +1,22 @@
 import {Link, Outlet, useNavigate} from "react-router-dom";
-import Logo from "../../components/Logo.jsx";
-import {LOGIN_ROUTE, STUDENT_DASHBOARD_ROUTE} from "../../router/index.jsx";
+import Logo from "../components/Logo.jsx";
+import {LOGIN_ROUTE, STUDENT_DASHBOARD_ROUTE} from "../router/index.jsx";
 import {useEffect, useState,} from "react";
-import {useUserContext} from "../../context/StudentContext.jsx";
-import StudentApi from "../../services/Api/Student/StudentApi.js";
+import {useUserContext} from "../context/StudentContext.jsx";
+import StudentApi from "../services/Api/Student/StudentApi.js";
 import StudentDropDownMenu from "./StudentDropDownMenu.jsx";
 import {GaugeIcon} from "lucide-react";
 import {StudentAdministrationSideBar} from "./Administration/StudentAdministrationSideBar.jsx";
-import {ModeToggle} from "../../components/mode-toggle.jsx";
+import {ModeToggle} from "../components/mode-toggle.jsx";
+import {AdminAdministrationSideBar} from "./Administration/AdminAdministrationSideBar.jsx";
+import {TeacherAdministrationSideBar} from "./Administration/TeacherAdministrationSideBar.jsx";
 
-export default function StudentDashboardLayout() {
+export default function TeacherDashboardLayout() {
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(true)
-    const {authenticated,setUser, setAuthenticated, logout: contextLogout} = useUserContext()
+    const {authenticated, setUser, setAuthenticated, logout: contextLogout} = useUserContext()
     useEffect(() => {
-        if(authenticated === true) {
+        if (authenticated === true) {
             setIsLoading(false)
             StudentApi.getUser().then(({data}) => {
                 setUser(data)
@@ -28,7 +30,7 @@ export default function StudentDashboardLayout() {
 
     }, [authenticated]);
 
-    if(isLoading) {
+    if (isLoading) {
         return <></>
     }
 
@@ -42,7 +44,7 @@ export default function StudentDashboardLayout() {
                 <div>
                     <ul className="flex text-white place-items-center">
                         <li className="ml-5 px-2 py-1">
-                            <Link className={'flex'} to={STUDENT_DASHBOARD_ROUTE}><GaugeIcon className={'mx-1'} />Dashboard</Link>
+                            <Link className={'flex'} to={STUDENT_DASHBOARD_ROUTE}><GaugeIcon className={'mx-1'}/>Dashboard</Link>
                         </li>
                         <li className="ml-5 px-2 py-1">
                             <StudentDropDownMenu/>
@@ -58,7 +60,7 @@ export default function StudentDashboardLayout() {
         <main className={'mx-auto px-10 space-y-4 py-4'}>
             <div className="flex">
                 <div className={'w-100 md:w-1/4'}>
-                    <StudentAdministrationSideBar/>
+                    <TeacherAdministrationSideBar/>
                 </div>
                 <div className={'w-100 md:w-3/4'}>
                     <Outlet/>

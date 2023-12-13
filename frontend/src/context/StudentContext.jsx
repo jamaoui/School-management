@@ -20,7 +20,6 @@ export default function StudentContext({children}) {
   const [authenticated, _setAuthenticated] = useState('true' === window.localStorage.getItem('AUTHENTICATED'))
 
   const login = async (email, password) => {
-    await StudentApi.getCsrfToken()
     return StudentApi.login(email, password)
   }
   const logout = () => {

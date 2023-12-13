@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
-import {Button} from "../../../components/ui/button.jsx";
-import {ScrollArea} from "../../../components/ui/scroll-area.jsx";
+import {Button} from "../../components/ui/button.jsx";
+import {ScrollArea} from "../../components/ui/scroll-area.jsx";
 
 export function StudentAdministrationSideBar({ className}) {
     const playlists = [
