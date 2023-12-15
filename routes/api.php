@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StudentParentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,4 +19,8 @@ Route::middleware(['auth:sanctum,admin,teacher'])->get('/user', function (Reques
     return $request->user();
 });
 
-require __DIR__.'/auth.php';
+Route::apiResources([
+    'parents' => StudentParentController::class,
+]);
+
+require __DIR__ . '/auth.php';
