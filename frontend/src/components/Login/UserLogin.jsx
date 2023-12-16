@@ -10,76 +10,77 @@ import {Loader} from "lucide-react";
 import {useUserContext} from "../../context/StudentContext.jsx";
 
 const formSchema = z.object({
-    email: z.string().email().min(2).max(30),
-    password: z.string().min(8).max(30)
+  email: z.string().email().min(2).max(30),
+  password: z.string().min(8).max(30)
 })
 export default function UserLogin() {
-    const {login, setAuthenticated} = useUserContext()
-    const navigate = useNavigate()
-    const form = useForm({
-        resolver: zodResolver(formSchema),
+  const {login, setAuthenticated, setToken} = useUserContext()
+  const navigate = useNavigate()
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+  })
+  const {setError, formState: {isSubmitting}} = form
+
+  // 2. Define a submit handler.
+  const onSubmit = async values => {
+    await login(values.email, values.password).then(
+      ({status, data}) => {
+        if (status === 200) {
+          setToken(data.token)
+          setAuthenticated(true)
+          const {role} = data.user
+          switch (role) {
+            case 'student':
+              navigate(STUDENT_DASHBOARD_ROUTE);
+              break;
+            case 'admin':
+              navigate(ADMIN_DASHBOARD_ROUTE)
+              break;
+            case 'teacher':
+              navigate(TEACHER_DASHBOARD_ROUTE)
+              break;
+          }
+        }
+      }).catch(({response}) => {
+      setError('email', {
+        message: response.data.errors.email.join()
+      })
     })
-    const {setError, formState: {isSubmitting}} = form
+  }
 
-    // 2. Define a submit handler.
-    const onSubmit = async values => {
-        await login(values.email, values.password).then(
-            ({status, data}) => {
-                if (status === 200) {
-                    setAuthenticated(true)
-                    const {role} = data.user
-                    switch (role) {
-                        case 'student':
-                            navigate(STUDENT_DASHBOARD_ROUTE);
-                            break;
-                        case 'admin':
-                            navigate(ADMIN_DASHBOARD_ROUTE)
-                            break;
-                        case 'teacher':
-                            navigate(TEACHER_DASHBOARD_ROUTE)
-                            break;
-                    }
-                }
-            }).catch(({response}) => {
-            setError('email', {
-                message: response.data.errors.email.join()
-            })
-        })
-    }
-
-    return <>
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                <FormField
-                    control={form.control}
-                    name="email"
-                    render={({field}) => (
-                        <FormItem>
-                            <FormLabel>Email</FormLabel>
-                            <FormControl>
-                                <Input placeholder="Email" {...field} />
-                            </FormControl>
-                            <FormMessage/>
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="password"
-                    render={({field}) => (
-                        <FormItem>
-                            <FormLabel>Password</FormLabel>
-                            <FormControl>
-                                <Input type={'password'} placeholder="Password" {...field} />
-                            </FormControl>
-                            <FormMessage/>
-                        </FormItem>
-                    )}
-                />
-                <Button className={''} disabled={isSubmitting} type="submit">
-                    {isSubmitting && <Loader className={'mx-2 my-2 animate-spin'}/>} {' '} Login
-                </Button>
-            </form>
-        </Form>
-    </>
+  return <>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <FormField
+          control={form.control}
+          name="email"
+          render={({field}) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input placeholder="Email" {...field} />
+              </FormControl>
+              <FormMessage/>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="password"
+          render={({field}) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input type={'password'} placeholder="Password" {...field} />
+              </FormControl>
+              <FormMessage/>
+            </FormItem>
+          )}
+        />
+        <Button className={''} disabled={isSubmitting} type="submit">
+          {isSubmitting && <Loader className={'mx-2 my-2 animate-spin'}/>} {' '} Login
+        </Button>
+      </form>
+    </Form>
+  </>
 }

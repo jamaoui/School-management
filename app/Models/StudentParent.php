@@ -18,5 +18,6 @@ class StudentParent extends Model
         'address',
         'phone',
         'email',
+        'password',
     ];
 }
