@@ -4,6 +4,7 @@ import {Separator} from "../ui/separator.jsx";
 import {ScrollArea, ScrollBar} from "../ui/scroll-area.jsx";
 
 import ParentCreateForm from "../Forms/ParentCreateForm.jsx";
+import AdminParentList from "../data-table/parent/AdminParentList.jsx";
 
 export default function ManageParents() {
   const {user} = useUserContext()
@@ -15,17 +16,17 @@ export default function ManageParents() {
             <div className="grid">
               <div className="col-span-3 lg:col-span-4">
                 <div className="h-full px-4 py-6 lg:px-8">
-                  <Tabs defaultValue="add_parent" className="h-full space-y-6">
+                  <Tabs defaultValue="parents_list" className="h-full space-y-6">
                     <div className="space-between flex items-center">
                       <TabsList>
-                        <TabsTrigger value="music" className="relative">
+                        <TabsTrigger value="parents_list" className="relative">
                           Parents
                         </TabsTrigger>
                         <TabsTrigger value="add_parent">Add new parent</TabsTrigger>
                       </TabsList>
                     </div>
                     <TabsContent
-                      value="music"
+                      value="parents_list"
                       className="border-none p-0 outline-none"
                     >
                       <div className="flex items-center justify-between">
@@ -34,30 +35,9 @@ export default function ManageParents() {
                             All parents
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut
-                            dolorum in iusto libero, molestias nihil non numquam optio
-                            pariatur perferendis quae quidem saepe totam voluptas!
+                            <AdminParentList/>
                           </p>
                         </div>
-                      </div>
-                      <Separator className="my-4"/>
-                      <div className="relative">
-                        <ScrollArea>
-                          <div className="flex space-x-4 pb-4">
-                          </div>
-                          <ScrollBar orientation="horizontal"/>
-                        </ScrollArea>
-                      </div>
-                      <div className="mt-6 space-y-1">
-                        <h2 className="text-2xl font-semibold tracking-tight">
-                          Made for You
-                        </h2>
-                        <p className="text-sm text-muted-foreground">
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto
-                          distinctio, ea placeat quia quos voluptas? Aperiam at aut culpa
-                          laudantium. Ab culpa ea facere laboriosam officiis, porro quasi
-                          sequi voluptatibus.
-                        </p>
                       </div>
                       <Separator className="my-4"/>
                       <div className="relative">
