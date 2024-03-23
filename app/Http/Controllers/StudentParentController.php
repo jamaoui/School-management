@@ -51,8 +51,10 @@ class StudentParentController extends Controller
   /**
    * Remove the specified resource from storage.
    */
-  public function destroy(StudentParent $studentParent)
+  public function destroy(StudentParent $parent)
   {
-    //
+    //$studentParent->delete();
+
+    return new StudentParentResource($parent);
   }
 }

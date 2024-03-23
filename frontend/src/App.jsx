@@ -3,7 +3,7 @@ import {RouterProvider} from "react-router-dom";
 import {router} from "./router/index.jsx";
 import StudentContext from "./context/StudentContext.jsx";
 import {ThemeProvider} from "./components/theme-provider.jsx";
-import {Toaster} from "./components/ui/toaster.jsx";
+import {Toaster} from "./components/ui/sonner.jsx";
 
 function App() {
   return (

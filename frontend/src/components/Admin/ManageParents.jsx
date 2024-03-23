@@ -4,7 +4,7 @@ import {Separator} from "../ui/separator.jsx";
 import {ScrollArea, ScrollBar} from "../ui/scroll-area.jsx";
 
 import ParentCreateForm from "../Forms/ParentCreateForm.jsx";
-import AdminParentList from "../data-table/parent/AdminParentList.jsx";
+import AdminParentList from "../data-table/AdminParentList.jsx";
 
 export default function ManageParents() {
   const {user} = useUserContext()
