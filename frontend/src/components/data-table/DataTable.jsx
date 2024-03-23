@@ -3,6 +3,7 @@ import {
   getCoreRowModel,
   getFilteredRowModel,
   getSortedRowModel,
+  getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table"
 
@@ -16,6 +17,8 @@ import {
   DropdownMenuTrigger
 } from "../ui/dropdown-menu.jsx";
 import {Button} from "../ui/button.jsx";
+import {DataTableViewOptions} from "./DataTableViewOptions.jsx";
+import {DataTablePagination} from "./DataTablePagination.jsx";
 
 export function DataTable({columns, data}) {
   const [sorting, setSorting] = useState([])
@@ -30,6 +33,7 @@ export function DataTable({columns, data}) {
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
+    getPaginationRowModel: getPaginationRowModel(),
     state: {
       sorting,
       columnFilters,
@@ -48,34 +52,7 @@ export function DataTable({columns, data}) {
           }
           className="max-w-sm"
         />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter(
-                (column) => column.getCanHide()
-              )
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                )
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <DataTableViewOptions table={table} />
       </div>
       <div className="rounded-md border">
         <Table>
@@ -120,6 +97,7 @@ export function DataTable({columns, data}) {
             )}
           </TableBody>
         </Table>
+        <DataTablePagination table={table} />
       </div>
     </>
   )

@@ -50,7 +50,7 @@ export default function UserLogin() {
 
   return <>
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
           name="email"
@@ -77,7 +77,7 @@ export default function UserLogin() {
             </FormItem>
           )}
         />
-        <Button className={''} disabled={isSubmitting} type="submit">
+        <Button className={'mt-2'} disabled={isSubmitting} type="submit">
           {isSubmitting && <Loader className={'mx-2 my-2 animate-spin'}/>} {' '} Login
         </Button>
       </form>

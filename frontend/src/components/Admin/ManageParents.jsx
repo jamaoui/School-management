@@ -34,9 +34,7 @@ export default function ManageParents() {
                           <h2 className="text-2xl font-semibold tracking-tight">
                             All parents
                           </h2>
-                          <p className="text-sm text-muted-foreground">
-                            <AdminParentList/>
-                          </p>
+                          <AdminParentList/>
                         </div>
                       </div>
                       <Separator className="my-4"/>

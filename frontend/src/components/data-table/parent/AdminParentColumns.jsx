@@ -1,37 +1,37 @@
 import {Button} from "../../ui/button.jsx";
 import {ArrowUp,ArrowDown} from "lucide-react";
+import {DataTableColumnHeader} from "../DataTableColumnHeader.jsx";
 
 export const AdminParentColumns = [
   {
     accessorKey: "id",
-    header: "#ID",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="#ID" />
+    },
   },
   {
     accessorKey: "firstname",
     header: ({ column }) => {
-      const isAsc = column.getIsSorted() === "asc"
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(isAsc)}
-        >
-          Firstname
-          {isAsc?<ArrowUp className="ml-2 h-4 w-4" />:<ArrowDown className="ml-2 h-4 w-4" />}
-        </Button>
-      )
+      return <DataTableColumnHeader column={column} title="Firstname" />
     },
   },
   {
     accessorKey: "lastname",
-    header: "Lastname",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Lastname" />
+    },
   },
   {
     accessorKey: "date_of_birth",
-    header: "Date of birth",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Date of birth" />
+    },
   },
   {
     accessorKey: "gender",
-    header: "Gender",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Gender" />
+    },
     cell: ({row}) => {
       const value = row.getValue("gender")
       const gender = value === 'm' ? 'Male' : 'Female'
@@ -40,15 +40,21 @@ export const AdminParentColumns = [
   },
   {
     accessorKey: "blood_type",
-    header: "Blood Type",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Blood Type" />
+    },
   },
   {
     accessorKey: "address",
-    header: "Address",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Address" />
+    },
   },
   {
     accessorKey: "phone",
-    header: "Phone",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Phone" />
+    },
     cell: ({row}) => {
       const phone = row.getValue("phone")
       return <div className="text-right font-medium">+212-{phone}</div>
@@ -56,11 +62,15 @@ export const AdminParentColumns = [
   },
   {
     accessorKey: "email",
-    header: "Email",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Email" />
+    },
   },
   {
     accessorKey: "updated_at",
-    header: "Updated at",
+    header: ({ column }) => {
+      return <DataTableColumnHeader column={column} title="Updated at" />
+    },
     cell: ({ row }) => {
       const date = (row.getValue("updated_at"))
       const formatted = new Date(date).toString()
