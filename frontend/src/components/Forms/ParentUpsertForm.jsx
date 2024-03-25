@@ -4,12 +4,11 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "../ui/form.jsx";
 import {Input} from "../ui/input.jsx";
 import {Button} from "../ui/button.jsx";
-import {Loader} from "lucide-react";
-import ParentApi from "../../services/Api/ParentApi.js";
+import {Loader, Trash2Icon} from "lucide-react";
 import {RadioGroup, RadioGroupItem} from "../ui/radio-group.jsx";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "../ui/select.jsx";
 import {Textarea} from "../ui/textarea.jsx";
-import {useToast} from "../ui/use-toast.js";
+import {toast} from "sonner";
 
 const formSchema = z.object({
   firstname: z.string().max(50),
@@ -22,37 +21,40 @@ const formSchema = z.object({
   email: z.string().email().min(2).max(30),
   password: z.string().min(8).max(30)
 })
-export default function ParentCreateForm() {
-  const {toast} = useToast()
+export default function ParentUpsertForm({handleSubmit,values}) {
   const form = useForm({
     resolver: zodResolver(formSchema),
+    defaultValues: values || {}
   })
   const {setError, formState: {isSubmitting}, reset} = form
-
+  const isUpdate = values !== undefined
   const onSubmit = async values => {
-    console.log(values)
-    await ParentApi.create(values).then(
+    const loaderMsg = isUpdate? 'Updating in progress.':'Adding parent'
+    const loader = toast.loading(loaderMsg)
+
+    await handleSubmit(values).then(
       ({status, data}) => {
-        if (status === 201) {
-          toast({
-            title: "Success",
-            description: "Parent created successfully ! ",
-          })
+        if (status === 200) {
+          toast.success(data.message)
           reset()
         }
-      }).catch(({response}) => {
+        console.log(status, data)
+      }).catch((all) => {
+        console.log(all)
       Object.entries(response.data.errors).forEach((error) => {
         const [fieldName, errorMessages] = error
         setError(fieldName, {
           message: errorMessages.join()
         })
       })
+    }).finally(() => {
+      toast.dismiss(loader)
     })
   }
 
   return <>
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
           name="firstname"
@@ -206,8 +208,9 @@ export default function ParentCreateForm() {
             </FormItem>
           )}
         />
-        <Button className={''} type="submit">
-          {isSubmitting && <Loader className={'mx-2 my-2 animate-spin'}/>} {' '} Create
+        <Button className={'mt-2'} type="submit">
+          {isSubmitting && <Loader className={'mx-2 my-2 animate-spin'}/>} {' '}
+          {isUpdate ? 'Update': 'Create'}
         </Button>
       </form>
     </Form>

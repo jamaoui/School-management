@@ -11,7 +11,18 @@ import {
   AlertDialogTrigger
 } from "../ui/alert-dialog.jsx";
 import {toast} from "sonner";
-import {DeleteIcon, Trash2Icon} from "lucide-react";
+import {Trash2Icon} from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger
+} from "../ui/sheet.jsx";
+import ParentUpsertForm from "../Forms/ParentUpsertForm.jsx";
+import parentApi from "../../services/Api/ParentApi.js";
 
 export default function AdminParentList() {
   const [data, setData] = useState([])
@@ -96,7 +107,27 @@ export default function AdminParentList() {
       id: "actions",
       cell: ({row}) => {
         const {id, firstname, lastname} = row.original
-        return (<>
+        const [openUpdateDialog, setOpenUpdateDialog] = useState(false)
+        return (<div className={'flex gap-x-1'}>
+            <Sheet open={openUpdateDialog} onOpenChange={setOpenUpdateDialog}>
+              <SheetTrigger>
+                <Button size={'sm'}>Update</Button>
+              </SheetTrigger>
+              <SheetContent>
+                <SheetHeader>
+                  <SheetTitle>Update parent {firstname} {lastname}</SheetTitle>
+                  <SheetDescription>
+                    Make changes to your parent here. Click save when you're done.
+                    <ParentUpsertForm values={row.original} handleSubmit={(values) => {
+                      const promise = parentApi.update(id, values)
+                      promise.then(() => setOpenUpdateDialog(false));
+
+                      return promise
+                    }}/>
+                  </SheetDescription>
+                </SheetHeader>
+              </SheetContent>
+            </Sheet>
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button size={'sm'} variant={'destructive'}>Delete</Button>
@@ -117,9 +148,9 @@ export default function AdminParentList() {
                     const deletingLoader = toast.loading('Deleting in progress.')
                     const {data: deletedParent, status} = await ParentApi.delete(id)
                     toast.dismiss(deletingLoader)
-                    if(status === 200) {
+                    if (status === 200) {
                       setData(data.filter((parent) => parent.id !== id))
-                      toast.success('Parent deleted',{
+                      toast.success('Parent deleted', {
                         description: `Parent deleted successfully ${deletedParent.data.firstname} ${deletedParent.data.lastname}`,
                         icon: <Trash2Icon/>
                       })
@@ -128,7 +159,7 @@ export default function AdminParentList() {
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
-          </>
+          </div>
         )
       },
     },

@@ -3,8 +3,9 @@ import {Tabs, TabsContent, TabsList, TabsTrigger} from "../ui/tabs.jsx";
 import {Separator} from "../ui/separator.jsx";
 import {ScrollArea, ScrollBar} from "../ui/scroll-area.jsx";
 
-import ParentCreateForm from "../Forms/ParentCreateForm.jsx";
+import ParentUpsertForm from "../Forms/ParentUpsertForm.jsx";
 import AdminParentList from "../data-table/AdminParentList.jsx";
+import ParentApi from "../../services/Api/ParentApi.js";
 
 export default function ManageParents() {
   const {user} = useUserContext()
@@ -49,7 +50,7 @@ export default function ManageParents() {
                     <TabsContent
                       value="add_parent">
                       <div className="space-y-1">
-                        <ParentCreateForm/>
+                        <ParentUpsertForm handleSubmit={(values) => ParentApi.create(values)}/>
                       </div>
                       <Separator className="my-4"/>
                     </TabsContent>

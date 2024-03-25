@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\BloodEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateStudentParentRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class UpdateStudentParentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,15 @@ class UpdateStudentParentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+          'firstname' => 'required|max:50',
+          'lastname' => 'required|max:50',
+          'date_of_birth' => 'required|date',
+          'gender' => ['required', Rule::in(['m', 'f'])],
+          'blood_type' => ['required', Rule::enum(BloodEnum::class)],
+          'address' => 'required|max:255',
+          'phone' => Rule::unique('student_parents')->ignore($this->id),
+          'email' => Rule::unique('student_parents')->ignore($this->id),
+          'password' => 'required',
         ];
     }
 }

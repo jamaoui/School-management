@@ -28,8 +28,11 @@ class StudentParentController extends Controller
     $formFields['password'] = Hash::make($formFields['password']);
     $formFields['last_login_date'] = new \DateTime();
     $parent = StudentParent::create($formFields);
-
-    return new StudentParentResource($parent);
+    $response = new StudentParentResource($parent);
+    return response()->json([
+      'parent' => $response,
+      'message' => __('Parent created successfully')
+    ]);
   }
 
   /**
@@ -43,9 +46,13 @@ class StudentParentController extends Controller
   /**
    * Update the specified resource in storage.
    */
-  public function update(UpdateStudentParentRequest $request, StudentParent $studentParent)
+  public function update(UpdateStudentParentRequest $request, StudentParent $parent)
   {
-    //
+    $parent->update($request->validated());
+    return response()->json([
+      'parent' => $parent,
+      'message' => __('Parent updated successfully')
+    ]);
   }
 
   /**
@@ -53,7 +60,7 @@ class StudentParentController extends Controller
    */
   public function destroy(StudentParent $parent)
   {
-    //$studentParent->delete();
+    $parent->delete();
 
     return new StudentParentResource($parent);
   }
