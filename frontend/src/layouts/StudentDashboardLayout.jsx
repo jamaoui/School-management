@@ -3,8 +3,8 @@ import Logo from "../components/Logo.jsx";
 import {LOGIN_ROUTE, STUDENT_DASHBOARD_ROUTE} from "../router/index.jsx";
 import {useEffect, useState,} from "react";
 import {useUserContext} from "../context/StudentContext.jsx";
-import StudentApi from "../services/Api/Student/StudentApi.js";
-import StudentDropDownMenu from "./StudentDropDownMenu.jsx";
+import UserApi from "../services/Api/Student/UserApi.js";
+import StudentDropDownMenu from "./drop-down-menu/StudentDropDownMenu.jsx";
 import {GaugeIcon} from "lucide-react";
 import {StudentAdministrationSideBar} from "./Administration/StudentAdministrationSideBar.jsx";
 import {ModeToggle} from "../components/mode-toggle.jsx";
@@ -16,7 +16,7 @@ export default function StudentDashboardLayout() {
   useEffect(() => {
     if (authenticated === true) {
       setIsLoading(false)
-      StudentApi.getUser().then(({data}) => {
+      UserApi.getUser().then(({data}) => {
         setUser(data)
         setAuthenticated(true)
       }).catch((reason) => {

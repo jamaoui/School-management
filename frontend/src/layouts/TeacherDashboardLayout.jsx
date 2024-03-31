@@ -3,11 +3,12 @@ import Logo from "../components/Logo.jsx";
 import {LOGIN_ROUTE, STUDENT_DASHBOARD_ROUTE} from "../router/index.jsx";
 import {useEffect, useState,} from "react";
 import {useUserContext} from "../context/StudentContext.jsx";
-import StudentApi from "../services/Api/Student/StudentApi.js";
-import StudentDropDownMenu from "./StudentDropDownMenu.jsx";
+import UserApi from "../services/Api/Student/UserApi.js";
+import StudentDropDownMenu from "./drop-down-menu/StudentDropDownMenu.jsx";
 import {GaugeIcon} from "lucide-react";
 import {ModeToggle} from "../components/mode-toggle.jsx";
 import {TeacherAdministrationSideBar} from "./Administration/TeacherAdministrationSideBar.jsx";
+import TeacherDropDownMenu from "./drop-down-menu/TeacherDropDownMenu.jsx";
 
 export default function TeacherDashboardLayout() {
   const navigate = useNavigate()
@@ -16,7 +17,7 @@ export default function TeacherDashboardLayout() {
   useEffect(() => {
     if (authenticated === true) {
       setIsLoading(false)
-      StudentApi.getUser().then(({data}) => {
+      UserApi.getUser().then(({data}) => {
         setUser(data)
         setAuthenticated(true)
       }).catch((reason) => {
@@ -45,7 +46,7 @@ export default function TeacherDashboardLayout() {
               <Link className={'flex'} to={STUDENT_DASHBOARD_ROUTE}><GaugeIcon className={'mx-1'}/>Dashboard</Link>
             </li>
             <li className="ml-5 px-2 py-1">
-              <StudentDropDownMenu/>
+              <TeacherDropDownMenu/>
             </li>
             <li className="ml-5 px-2 py-1">
               <ModeToggle/>

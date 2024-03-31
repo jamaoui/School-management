@@ -1,6 +1,6 @@
 import {Link, Outlet, useNavigate} from "react-router-dom";
 import Logo from "../components/Logo.jsx";
-import {LOGIN_ROUTE, redirectToDashboard, STUDENT_DASHBOARD_ROUTE} from "../router/index.jsx";
+import {LOGIN_ROUTE, STUDENT_DASHBOARD_ROUTE} from "../router/index.jsx";
 import {useEffect, useState,} from "react";
 import {useUserContext} from "../context/StudentContext.jsx";
 import UserApi from "../services/Api/Student/UserApi.js";
@@ -9,8 +9,10 @@ import {GaugeIcon} from "lucide-react";
 import {ModeToggle} from "../components/mode-toggle.jsx";
 import {AdminAdministrationSideBar} from "./Administration/AdminAdministrationSideBar.jsx";
 import AdminDropDownMenu from "./drop-down-menu/AdminDropDownMenu.jsx";
+import ParentDropDownMenu from "./drop-down-menu/ParentDropDownMenu.jsx";
+import {ParentAdministrationSideBar} from "./Administration/ParentAdministrationSideBar.jsx";
 
-export default function AdminDashboardLayout() {
+export default function ParentDashboardLayout() {
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(true)
   const {authenticated, setUser, setAuthenticated, logout: contextLogout} = useUserContext()
@@ -18,10 +20,6 @@ export default function AdminDashboardLayout() {
     if (authenticated === true) {
       setIsLoading(false)
       UserApi.getUser().then(({data}) => {
-        const {role} = data
-        if(role !== 'admin') {
-          navigate(redirectToDashboard(role));
-        }
         setUser(data)
         setAuthenticated(true)
       }).catch((reason) => {
@@ -50,7 +48,7 @@ export default function AdminDashboardLayout() {
               <Link className={'flex'} to={STUDENT_DASHBOARD_ROUTE}><GaugeIcon className={'mx-1'}/>Dashboard</Link>
             </li>
             <li className="ml-5 px-2 py-1">
-              <AdminDropDownMenu/>
+              <ParentDropDownMenu/>
             </li>
             <li className="ml-5 px-2 py-1">
               <ModeToggle/>
@@ -63,7 +61,7 @@ export default function AdminDashboardLayout() {
     <main className={'mx-auto px-10 space-y-4 py-4'}>
       <div className="flex">
         <div className={'w-100 md:w-2/12 border mr-2 rounded-l'}>
-          <AdminAdministrationSideBar/>
+          <ParentAdministrationSideBar/>
         </div>
         <div className={'w-100 md:w-10/12 border rounded-l'}>
           <Outlet/>

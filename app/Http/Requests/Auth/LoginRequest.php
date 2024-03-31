@@ -40,7 +40,7 @@ class LoginRequest extends FormRequest
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
-        $guards = ['web', 'teacher', 'admin'];
+        $guards = ['web','teacher', 'parent', 'admin'];
         $isLogged = false;
 
         foreach ($guards as $guard) {

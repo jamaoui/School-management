@@ -1,6 +1,6 @@
 import {axiosClient} from "../../../api/axios.js";
 
-const StudentApi = {
+const UserApi = {
   login: async (email, password) => {
     return await axiosClient.post('/login', {email, password})
   },
@@ -8,8 +8,7 @@ const StudentApi = {
     return await axiosClient.post('/logout')
   },
   getUser: async () => {
-    return await axiosClient.get('/admin')
+    return await axiosClient.get('/me')
   },
-
 }
-export default StudentApi
+export default UserApi

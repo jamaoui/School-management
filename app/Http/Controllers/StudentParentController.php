@@ -48,7 +48,9 @@ class StudentParentController extends Controller
    */
   public function update(UpdateStudentParentRequest $request, StudentParent $parent)
   {
-    $parent->update($request->validated());
+    $formFields = $request->validated();
+    $formFields['password'] = Hash::make($formFields['password']);
+    $parent->update($formFields);
     return response()->json([
       'parent' => $parent,
       'message' => __('Parent updated successfully')

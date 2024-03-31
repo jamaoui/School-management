@@ -5,7 +5,12 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "..
 import {Input} from "../ui/input.jsx";
 import {Button} from "../ui/button.jsx";
 import {useNavigate} from "react-router-dom";
-import {ADMIN_DASHBOARD_ROUTE, STUDENT_DASHBOARD_ROUTE, TEACHER_DASHBOARD_ROUTE} from "../../router/index.jsx";
+import {
+  ADMIN_DASHBOARD_ROUTE,
+  PARENT_DASHBOARD_ROUTE, redirectToDashboard,
+  STUDENT_DASHBOARD_ROUTE,
+  TEACHER_DASHBOARD_ROUTE
+} from "../../router/index.jsx";
 import {Loader} from "lucide-react";
 import {useUserContext} from "../../context/StudentContext.jsx";
 
@@ -29,17 +34,7 @@ export default function UserLogin() {
           setToken(data.token)
           setAuthenticated(true)
           const {role} = data.user
-          switch (role) {
-            case 'student':
-              navigate(STUDENT_DASHBOARD_ROUTE);
-              break;
-            case 'admin':
-              navigate(ADMIN_DASHBOARD_ROUTE)
-              break;
-            case 'teacher':
-              navigate(TEACHER_DASHBOARD_ROUTE)
-              break;
-          }
+          navigate(redirectToDashboard(role));
         }
       }).catch(({response}) => {
       setError('email', {
