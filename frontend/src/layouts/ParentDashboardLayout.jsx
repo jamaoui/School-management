@@ -3,7 +3,7 @@ import Logo from "../components/Logo.jsx";
 import {LOGIN_ROUTE, STUDENT_DASHBOARD_ROUTE} from "../router/index.jsx";
 import {useEffect, useState,} from "react";
 import {useUserContext} from "../context/StudentContext.jsx";
-import UserApi from "../services/Api/Student/UserApi.js";
+import UserApi from "../services/Api/UserApi.js";
 import StudentDropDownMenu from "./drop-down-menu/StudentDropDownMenu.jsx";
 import {GaugeIcon} from "lucide-react";
 import {ModeToggle} from "../components/mode-toggle.jsx";
@@ -60,10 +60,10 @@ export default function ParentDashboardLayout() {
     <hr/>
     <main className={'mx-auto px-10 space-y-4 py-4'}>
       <div className="flex">
-        <div className={'w-100 md:w-2/12 border mr-2 rounded-l'}>
+        <div className={'w-full md:w-2/12 border mr-2 rounded-l'}>
           <ParentAdministrationSideBar/>
         </div>
-        <div className={'w-100 md:w-10/12 border rounded-l'}>
+        <div className={'w-full md:w-10/12 border rounded-l'}>
           <Outlet/>
         </div>
       </div>

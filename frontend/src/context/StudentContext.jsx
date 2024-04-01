@@ -1,5 +1,5 @@
 import {createContext, useContext, useState} from "react";
-import UserApi from "../services/Api/Student/UserApi.js";
+import UserApi from "../services/Api/UserApi.js";
 
 export const StudentStateContext = createContext({
   user: {},

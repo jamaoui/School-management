@@ -1,4 +1,4 @@
-import {axiosClient} from "../../api/axios.js";
+import {axiosClient} from "../../../api/axios.js";
 
 const ParentApi = {
   create: async (payload) => {
@@ -10,8 +10,12 @@ const ParentApi = {
   delete: async (id) => {
     return await axiosClient.delete(`/admin/parents/${id}`)
   },
-  all: async () => {
-    return await axiosClient.get('/admin/parents')
+  all: async (columns = []) => {
+    return await axiosClient.get('/admin/parents', {
+      params: {
+        columns: columns
+      },
+    })
   },
 }
 export default ParentApi

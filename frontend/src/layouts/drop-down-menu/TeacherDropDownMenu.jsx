@@ -29,7 +29,7 @@ import {
   UserPlus,
   Users,
 } from 'lucide-react'
-import UserApi from "../../services/Api/Student/UserApi.js";
+import UserApi from "../../services/Api/UserApi.js";
 import {LOGIN_ROUTE} from "../../router/index.jsx";
 import {useUserContext} from "../../context/StudentContext.jsx";
 import {useNavigate} from "react-router-dom";

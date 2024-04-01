@@ -1,18 +1,18 @@
 import * as z from "zod"
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "../ui/form.jsx";
-import {Input} from "../ui/input.jsx";
-import {Button} from "../ui/button.jsx";
+import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "../../ui/form.jsx";
+import {Input} from "../../ui/input.jsx";
+import {Button} from "../../ui/button.jsx";
 import {useNavigate} from "react-router-dom";
 import {
   ADMIN_DASHBOARD_ROUTE,
   PARENT_DASHBOARD_ROUTE, redirectToDashboard,
   STUDENT_DASHBOARD_ROUTE,
   TEACHER_DASHBOARD_ROUTE
-} from "../../router/index.jsx";
+} from "../../../router/index.jsx";
 import {Loader} from "lucide-react";
-import {useUserContext} from "../../context/StudentContext.jsx";
+import {useUserContext} from "../../../context/StudentContext.jsx";
 
 const formSchema = z.object({
   email: z.string().email().min(2).max(30),

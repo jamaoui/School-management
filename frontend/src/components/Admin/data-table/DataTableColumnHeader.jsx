@@ -10,8 +10,8 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger
-} from "../ui/dropdown-menu.jsx";
-import {Button} from "../ui/button.jsx";
+} from "../../ui/dropdown-menu.jsx";
+import {Button} from "../../ui/button.jsx";
 
 
 

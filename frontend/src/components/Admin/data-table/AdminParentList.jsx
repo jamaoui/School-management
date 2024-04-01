@@ -1,6 +1,6 @@
 import {DataTable} from "./DataTable.jsx";
 import {useEffect, useState} from "react";
-import ParentApi from "../../services/Api/ParentApi.js";
+import ParentApi from "../../../services/Api/Admin/ParentApi.js";
 import {DataTableColumnHeader} from "./DataTableColumnHeader.jsx";
 import {Button} from "@/components/ui/button"
 import {
@@ -9,20 +9,19 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger
-} from "../ui/alert-dialog.jsx";
+} from "../../ui/alert-dialog.jsx";
 import {toast} from "sonner";
 import {Trash2Icon} from "lucide-react";
 import {
   Sheet,
   SheetContent,
   SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger
-} from "../ui/sheet.jsx";
+} from "../../ui/sheet.jsx";
 import ParentUpsertForm from "../Forms/ParentUpsertForm.jsx";
-import parentApi from "../../services/Api/ParentApi.js";
+import parentApi from "../../../services/Api/Admin/ParentApi.js";
 
 export default function AdminParentList() {
   const [data, setData] = useState([])
@@ -92,15 +91,13 @@ export default function AdminParentList() {
       },
     },
     {
-      accessorKey: "updated_at",
+      accessorKey: "formatted_updated_at",
       header: ({column}) => {
         return <DataTableColumnHeader column={column} title="Updated at"/>
       },
       cell: ({row}) => {
-        const date = (row.getValue("updated_at"))
-        const formatted = new Date(date).toString()
-
-        return <div className="text-right font-medium">{formatted}</div>
+        const date = (row.getValue("formatted_updated_at"))
+        return <div className="text-right font-medium">{date}</div>
       },
     },
     {
@@ -120,7 +117,17 @@ export default function AdminParentList() {
                     Make changes to your parent here. Click save when you're done.
                     <ParentUpsertForm values={row.original} handleSubmit={(values) => {
                       const promise = parentApi.update(id, values)
-                      promise.then(() => setOpenUpdateDialog(false));
+                      promise.then((response) => {
+                        const {parent} = response.data
+                        const elements = data.map((item) => {
+                          if(item.id === id) {
+                            return parent
+                          }
+                          return item
+                        })
+                        setData(elements)
+                        setOpenUpdateDialog(false);
+                      });
 
                       return promise
                     }}/>

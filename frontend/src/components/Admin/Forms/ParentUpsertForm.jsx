@@ -1,13 +1,13 @@
 import * as z from "zod"
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "../ui/form.jsx";
-import {Input} from "../ui/input.jsx";
-import {Button} from "../ui/button.jsx";
+import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "../../ui/form.jsx";
+import {Input} from "../../ui/input.jsx";
+import {Button} from "../../ui/button.jsx";
 import {Loader, Trash2Icon} from "lucide-react";
-import {RadioGroup, RadioGroupItem} from "../ui/radio-group.jsx";
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "../ui/select.jsx";
-import {Textarea} from "../ui/textarea.jsx";
+import {RadioGroup, RadioGroupItem} from "../../ui/radio-group.jsx";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "../../ui/select.jsx";
+import {Textarea} from "../../ui/textarea.jsx";
 import {toast} from "sonner";
 
 const formSchema = z.object({
@@ -38,9 +38,7 @@ export default function ParentUpsertForm({handleSubmit,values}) {
           toast.success(data.message)
           reset()
         }
-        console.log(status, data)
       }).catch((all) => {
-        console.log(all)
       Object.entries(response.data.errors).forEach((error) => {
         const [fieldName, errorMessages] = error
         setError(fieldName, {

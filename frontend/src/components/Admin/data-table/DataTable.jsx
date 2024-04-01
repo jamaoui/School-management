@@ -9,14 +9,14 @@ import {
 
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow,} from "@/components/ui/table"
 import {useState} from "react";
-import {Input} from "../ui/input.jsx";
+import {Input} from "../../ui/input.jsx";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger
-} from "../ui/dropdown-menu.jsx";
-import {Button} from "../ui/button.jsx";
+} from "../../ui/dropdown-menu.jsx";
+import {Button} from "../../ui/button.jsx";
 import {DataTableViewOptions} from "./DataTableViewOptions.jsx";
 import {DataTablePagination} from "./DataTablePagination.jsx";
 

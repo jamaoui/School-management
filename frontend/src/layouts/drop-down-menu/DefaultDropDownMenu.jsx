@@ -29,7 +29,7 @@ import {
   UserPlus,
   Users,
 } from 'lucide-react'
-import UserApi from "../../services/Api/Student/UserApi.js";
+import UserApi from "../../services/Api/UserApi.js";
 import {LOGIN_ROUTE} from "../../router/index.jsx";
 import {useUserContext} from "../../context/StudentContext.jsx";
 import {useNavigate} from "react-router-dom";
@@ -47,7 +47,7 @@ export default function DefaultDropDownMenu({children}) {
   return <>
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button> <User className="mr-2 h-4 w-4"/>{user.name || user.firstname}</Button>
+        <Button> <User className="mr-2 h-4 w-4"/>{user.firstname}</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>

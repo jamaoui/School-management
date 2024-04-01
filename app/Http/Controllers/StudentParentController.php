@@ -6,6 +6,7 @@ use App\Http\Requests\StoreStudentParentRequest;
 use App\Http\Requests\UpdateStudentParentRequest;
 use App\Http\Resources\StudentParentResource;
 use App\Models\StudentParent;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,9 +15,11 @@ class StudentParentController extends Controller
   /**
    * Display a listing of the resource.
    */
-  public function index(): AnonymousResourceCollection
+  public function index(Request $request): AnonymousResourceCollection
   {
-    return StudentParentResource::collection(StudentParent::all());
+    $columns = $request->get('columns');
+    $parents = !empty($columns) ? StudentParent::all($columns) : StudentParent::all();
+    return StudentParentResource::collection($parents);
   }
 
   /**

@@ -3,7 +3,7 @@ import Logo from "../components/Logo.jsx";
 import {LOGIN_ROUTE, STUDENT_DASHBOARD_ROUTE} from "../router/index.jsx";
 import {useEffect, useState,} from "react";
 import {useUserContext} from "../context/StudentContext.jsx";
-import UserApi from "../services/Api/Student/UserApi.js";
+import UserApi from "../services/Api/UserApi.js";
 import StudentDropDownMenu from "./drop-down-menu/StudentDropDownMenu.jsx";
 import {GaugeIcon} from "lucide-react";
 import {ModeToggle} from "../components/mode-toggle.jsx";
@@ -58,10 +58,10 @@ export default function TeacherDashboardLayout() {
     <hr/>
     <main className={'mx-auto px-10 space-y-4 py-4'}>
       <div className="flex">
-        <div className={'w-100 md:w-1/4'}>
+        <div className={'w-full md:w-1/4'}>
           <TeacherAdministrationSideBar/>
         </div>
-        <div className={'w-100 md:w-3/4'}>
+        <div className={'w-full md:w-3/4'}>
           <Outlet/>
         </div>
       </div>
